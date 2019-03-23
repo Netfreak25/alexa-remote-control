@@ -638,7 +638,7 @@ ${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep
 # -H "csrf: $(awk "\$0 ~/.${AMAZON}.*csrf[ \\s\\t]+/ {print \$7}" ${COOKIE})" -X POST -d  "{\"type\":\"JumpCommand\",\"mediaId\":${mediaId},\"contentFocusClientId\":null}" \
 # "https://${ALEXA}/api/np/command?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}&"
 #
-#}
+}
 
 #
 # play PRIME playlist
