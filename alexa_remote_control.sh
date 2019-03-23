@@ -630,8 +630,8 @@ FILE=${TMP}/.alexa.audible.list
 ${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep-alive" -L\
  -H "Content-Type: application/json; charset=UTF-8" -H "Referer: https://alexa.${AMAZON}/spa/index.html" -H "Origin: https://alexa.${AMAZON}"\
  -H "csrf: $(awk "\$0 ~/.${AMAZON}.*csrf[ \\s\\t]+/ {print \$7}" ${COOKIE})" -X GET \
- "https://${ALEXA}/api/audible/audible-books?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}mediaOwnerCustomerId=${MEDIAOWNERCUSTOMERID}" > ${FILE}.tmp
-echo  "https://${ALEXA}/api/audible/audible-books?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}mediaOwnerCustomerId=${MEDIAOWNERCUSTOMERID}"
+ "https://${ALEXA}/api/audible/audible-books?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}&mediaOwnerCustomerId=${MEDIAOWNERCUSTOMERID}" > ${FILE}.tmp
+echo  "https://${ALEXA}/api/audible/audible-books?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}&mediaOwnerCustomerId=${MEDIAOWNERCUSTOMERID}"
 }
 
 #
