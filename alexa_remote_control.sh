@@ -121,7 +121,7 @@ CHILD=""
 PLIST=""
 BLUETOOTH=""
 LASTALEXA=""
-AUDBILE=""
+AUDIBLE=""
 
 usage()
 {
@@ -283,7 +283,7 @@ while [ "$#" -gt 0 ] ; do
 			QUEUE="true"
 			;;
 		-z)
-			AUDBILE="true"
+			AUDIBLE="true"
 			;;
 		-lastalexa)
 			LASTALEXA="true"
