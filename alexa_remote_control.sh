@@ -618,7 +618,7 @@ ${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep
 TOTAL=`jq '.queueInfo.media | .[].index' $FILE.tmp | wc -l`
 mediaId=`jq '.queueInfo.media | .[0].mediaId' $FILE.tmp`
 
-echo mediaId
+echo $mediaId
 #rm $FILE.tmp
 
 ## jump to champer 1
