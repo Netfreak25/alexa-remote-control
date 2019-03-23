@@ -637,7 +637,7 @@ TOTAL=`jq '.audibleBookList | .[].title' /tmp/.alexa.audible.list.tmp | wc -l`
 echo "trackCount:"${TOTAL}""
 jq '.audibleBookList | .[].title' /tmp/.alexa.audible.list.tmp
 
-rm -f ${FILE}.tmp
+#rm -f ${FILE}.tmp
 }
 
 #
