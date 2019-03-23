@@ -121,6 +121,7 @@ CHILD=""
 PLIST=""
 BLUETOOTH=""
 LASTALEXA=""
+AUDBILE=""
 
 usage()
 {
@@ -146,6 +147,7 @@ usage()
 	echo "   -a : list available devices"
 	echo "   -m : delete multiroom and/or create new multiroom containing devices"
 	echo "   -lastalexa : print device that received the last voice command"
+	echo "   -t : list audible books"
 	echo "   -l : logoff"
 	echo "   -h : help"
 }
@@ -279,6 +281,9 @@ while [ "$#" -gt 0 ] ; do
 			;;
 		-q)
 			QUEUE="true"
+			;;
+		-t)
+			AUDBILE="true"
 			;;
 		-lastalexa)
 			LASTALEXA="true"
@@ -617,6 +622,18 @@ ${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep
 }
 
 #
+# list audible books
+#
+list_audible_books()
+{
+FILE=${TMP}/.alexa.audible.list
+${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep-alive" -L\
+ -H "Content-Type: application/json; charset=UTF-8" -H "Referer: https://alexa.${AMAZON}/spa/index.html" -H "Origin: https://alexa.${AMAZON}"\
+ -H "csrf: $(awk "\$0 ~/.${AMAZON}.*csrf[ \\s\\t]+/ {print \$7}" ${COOKIE})" -X GET \
+ "https://${ALEXA}/api/audible/audible-books?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}mediaOwnerCustomerId=${MEDIAOWNERCUSTOMERID}" > ${FILE}.tmp
+}
+
+#
 # show library tracks
 #
 show_library()
@@ -932,6 +949,8 @@ elif [ -n "$HIST" ] ; then
 	play_prime_hist_queue
 elif [ -n "$LASTALEXA" ] ; then
 	last_alexa
+elif [ -n "$AUDIBLE" ] ; then
+	list_audible_books
 else
 	echo "no alexa command received"
 fi
