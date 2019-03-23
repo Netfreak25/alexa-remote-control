@@ -617,7 +617,7 @@ TOTAL=`jq '.queueInfo | .[].title' $FILE.tmp | wc -l`
 
 
 echo "chapterCount:"${TOTAL}""
-jq '.queueInfo' $FILE.tmp
+jq '.queueInfo.media' $FILE.tmp
 
 
 #${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep-alive" -L\
