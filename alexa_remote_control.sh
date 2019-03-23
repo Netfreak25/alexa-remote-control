@@ -606,7 +606,7 @@ ${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep
  -H "csrf: $(awk "\$0 ~/.${AMAZON}.*csrf[ \\s\\t]+/ {print \$7}" ${COOKIE})" -X POST -d "{\"deviceType\":\"${DEVICETYPE}\",\"deviceSerialNumber\":\"${DEVICESERIALNUMBER}\",\"mediaOwnerCustomerId\":\"${MEDIAOWNERCUSTOMERID}\",\"asin\":\"${ASIN}\"}" \
  "https://${ALEXA}/api/audible/queue-and-play?"
 
-
+sleep 1
 # get chapter 1 mediaId
 TOTAL=0
 FILE=${TMP}/.alexa.audible.chapters.list
@@ -618,6 +618,8 @@ ${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep
 TOTAL=`jq '.queueInfo.media | .[].index' $FILE.tmp | wc -l`
 mediaId=`jq '.queueInfo.media | .[0].mediaId' $FILE.tmp`
 
+
+sleep 2
 echo $mediaId
 #rm $FILE.tmp
 
