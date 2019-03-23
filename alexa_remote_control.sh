@@ -619,9 +619,6 @@ TOTAL=`jq '.queueInfo.media | .[].index' $FILE.tmp | wc -l`
 mediaId=`jq '.queueInfo.media | .[0].mediaId' $FILE.tmp`
 
 
-echo "chapterCount:"${TOTAL}
-echo "mediaId:"${mediaId}
-
 # jump to champer 1
 ${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep-alive" -L\
  -H "Content-Type: application/json; charset=UTF-8" -H "Referer: https://alexa.${AMAZON}/spa/index.html" -H "Origin: https://alexa.${AMAZON}"\
@@ -677,7 +674,7 @@ ${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep
 TOTAL=`jq '.audibleBookList | .[].title' /tmp/.alexa.audible.list.tmp | wc -l`
 
 echo "trackCount:"${TOTAL}""
-jq '.audibleBookList | .[].title' /tmp/.alexa.audible.list.tmp
+jq '.audibleBookList | .[].title,.[].asin' /tmp/.alexa.audible.list.tmp
 
 #rm -f ${FILE}.tmp
 }
