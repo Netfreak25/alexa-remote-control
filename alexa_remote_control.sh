@@ -951,6 +951,7 @@ elif [ -n "$HIST" ] ; then
 elif [ -n "$LASTALEXA" ] ; then
 	last_alexa
 elif [ -n "$AUDIBLE" ] ; then
+	set_var
 	list_audible_books
 else
 	echo "no alexa command received"
