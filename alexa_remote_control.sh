@@ -122,6 +122,7 @@ PLIST=""
 BLUETOOTH=""
 LASTALEXA=""
 AUDIBLE=""
+AUDIBLEPLAY=""
 
 usage()
 {
@@ -129,6 +130,7 @@ usage()
 	echo "          -b [list|<\"AA:BB:CC:DD:EE:FF\">] | -q | -r <\"station name\"|stationid> |"
 	echo "          -s <trackID|'Artist' 'Album'> | -t <ASIN> | -u <seedID> | -v <queueID> | -w <playlistId> |"
 	echo "          -i | -p | -P | -S | -a | -m <multiroom_device> [device_1 .. device_X] | -lastalexa | -l | -h"
+	echo "          -y -t <ASIN>"
 	echo
 	echo "   -e : run command, additional SEQUENCECMDs:"
 	echo "        weather,traffic,flashbriefing,goodmorning,singasong,tellstory,speak:'<text>',automation:'<routine name>'"
@@ -148,6 +150,7 @@ usage()
 	echo "   -m : delete multiroom and/or create new multiroom containing devices"
 	echo "   -lastalexa : print device that received the last voice command"
 	echo "   -z : list audible books"
+	echo "   -y : play audible book [asin]"
 	echo "   -l : logoff"
 	echo "   -h : help"
 }
@@ -284,6 +287,9 @@ while [ "$#" -gt 0 ] ; do
 			;;
 		-z)
 			AUDIBLE="true"
+			;;
+		-y)
+			AUDIBLEPLAY="true"
 			;;
 		-lastalexa)
 			LASTALEXA="true"
@@ -586,6 +592,19 @@ ${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep
  -H "Content-Type: application/json; charset=UTF-8" -H "Referer: https://alexa.${AMAZON}/spa/index.html" -H "Origin: https://alexa.${AMAZON}"\
  -H "csrf: $(awk "\$0 ~/.${AMAZON}.*csrf[ \\s\\t]+/ {print \$7}" ${COOKIE})" -X POST -d "{\"playlistId\":\"${PLIST}\",\"playQueuePrime\":true}"\
  "https://${ALEXA}/api/cloudplayer/queue-and-play?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}&mediaOwnerCustomerId=${MEDIAOWNERCUSTOMERID}&shuffle=false"
+}
+
+
+#
+# play library playlist
+#
+play_audible()
+{
+${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep-alive" -L\
+ -H "Content-Type: application/json; charset=UTF-8" -H "Referer: https://alexa.${AMAZON}/spa/index.html" -H "Origin: https://alexa.${AMAZON}"\
+ -H "csrf: $(awk "\$0 ~/.${AMAZON}.*csrf[ \\s\\t]+/ {print \$7}" ${COOKIE})" -X POST -d "{\"playlistId\":\"${PLIST}\",\"playQueuePrime\":true}"\
+ "https://${ALEXA}/api/audbile/queue-and-play
+ ?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}&mediaOwnerCustomerId=${MEDIAOWNERCUSTOMERID}&shuffle=false"
 }
 
 #
@@ -942,7 +961,7 @@ elif [ -n "$PRIME" ] ; then
 	set_var
 	echo "the following songs exist in your PRIME ${PRIME}:"
 	show_prime
-elif [ -n "$ASIN" ] ; then
+elif [ -n "$ASIN" ] and [ "$AUDIBLEPLAY" != "" ]; then
 	set_var
 	echo "playing PRIME playlist ${ASIN}"
 	play_prime_playlist
@@ -959,6 +978,9 @@ elif [ -n "$LASTALEXA" ] ; then
 elif [ -n "$AUDIBLE" ] ; then
 	set_var
 	list_audible_books
+elif [ -n "$AUDIBLEPLAY" ] ; then
+	set_var
+	play_audible
 else
 	echo "no alexa command received"
 fi
