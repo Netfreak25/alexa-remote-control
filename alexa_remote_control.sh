@@ -147,7 +147,7 @@ usage()
 	echo "   -a : list available devices"
 	echo "   -m : delete multiroom and/or create new multiroom containing devices"
 	echo "   -lastalexa : print device that received the last voice command"
-	echo "   -t : list audible books"
+	echo "   -z : list audible books"
 	echo "   -l : logoff"
 	echo "   -h : help"
 }
@@ -282,7 +282,7 @@ while [ "$#" -gt 0 ] ; do
 		-q)
 			QUEUE="true"
 			;;
-		-t)
+		-z)
 			AUDBILE="true"
 			;;
 		-lastalexa)
