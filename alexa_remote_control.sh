@@ -617,13 +617,15 @@ FILE=${TMP}/.alexa.audible.chapters.list
   "https://${ALEXA}/api/np/queue?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}" > ${FILE}.tmp
 TOTAL=`jq '.queueInfo.media | .[].index' $FILE.tmp | wc -l`
 mediaId=`jq '.queueInfo.media | .[0].mediaId' $FILE.tmp`
+rm $FILE.tmp
 
+echo mediaId
 
-# jump to champer 1
-${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep-alive" -L\
- -H "Content-Type: application/json; charset=UTF-8" -H "Referer: https://alexa.${AMAZON}/spa/index.html" -H "Origin: https://alexa.${AMAZON}"\
- -H "csrf: $(awk "\$0 ~/.${AMAZON}.*csrf[ \\s\\t]+/ {print \$7}" ${COOKIE})" -X POST -d  "{\"type\":\"JumpCommand\",\"mediaId\":${mediaId},\"contentFocusClientId\":null}" \
- "https://${ALEXA}/api/np/command?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}&"
+## jump to champer 1
+#${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep-alive" -L\
+# -H "Content-Type: application/json; charset=UTF-8" -H "Referer: https://alexa.${AMAZON}/spa/index.html" -H "Origin: https://alexa.${AMAZON}"\
+# -H "csrf: $(awk "\$0 ~/.${AMAZON}.*csrf[ \\s\\t]+/ {print \$7}" ${COOKIE})" -X POST -d  "{\"type\":\"JumpCommand\",\"mediaId\":${mediaId},\"contentFocusClientId\":null}" \
+# "https://${ALEXA}/api/np/command?deviceSerialNumber=${DEVICESERIALNUMBER}&deviceType=${DEVICETYPE}&"
 
 }
 
