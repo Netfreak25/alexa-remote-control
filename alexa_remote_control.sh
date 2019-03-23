@@ -963,7 +963,7 @@ elif [ -n "$PRIME" ] ; then
 	set_var
 	echo "the following songs exist in your PRIME ${PRIME}:"
 	show_prime
-elif [ -n "$ASIN" ] && [ "$AUDIBLEPLAY" != "" ]; then
+elif [ -n "$ASIN" ] && [ "$AUDIBLEPLAY" == "" ]; then
 	set_var
 	echo "playing PRIME playlist ${ASIN}"
 	play_prime_playlist
@@ -979,6 +979,7 @@ elif [ -n "$LASTALEXA" ] ; then
 	last_alexa
 elif [ -n "$AUDIBLE" ] ; then
 	set_var
+	echo "playing Audible Book ${ASIN}"
 	list_audible_books
 elif [ -n "$AUDIBLEPLAY" ] ; then
 	set_var
