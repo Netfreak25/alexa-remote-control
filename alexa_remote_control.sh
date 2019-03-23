@@ -959,11 +959,20 @@ elif [ -n "$TYPE" ] ; then
 	set_var
 	echo -n "the following songs exist in your ${TYPE} library: "
 	show_library
+elif [ -n "$LASTALEXA" ] ; then
+	last_alexa
+elif [ -n "$AUDIBLE" ] ; then
+	set_var
+	echo "playing Audible Book ${ASIN}"
+	list_audible_books
+elif [ -n "$AUDIBLEPLAY" ] ; then
+	set_var
+	play_audible
 elif [ -n "$PRIME" ] ; then
 	set_var
 	echo "the following songs exist in your PRIME ${PRIME}:"
 	show_prime
-elif [ -n "$ASIN" ] && [ "$AUDIBLEPLAY" == "" ]; then
+elif [ -n "$ASIN" ]; then
 	set_var
 	echo "playing PRIME playlist ${ASIN}"
 	play_prime_playlist
@@ -975,15 +984,7 @@ elif [ -n "$HIST" ] ; then
 	set_var
 	echo "playing PRIME historical queue ${HIST}"
 	play_prime_hist_queue
-elif [ -n "$LASTALEXA" ] ; then
-	last_alexa
-elif [ -n "$AUDIBLE" ] ; then
-	set_var
-	echo "playing Audible Book ${ASIN}"
-	list_audible_books
-elif [ -n "$AUDIBLEPLAY" ] ; then
-	set_var
-	play_audible
+
 else
 	echo "no alexa command received"
 fi
