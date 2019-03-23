@@ -674,7 +674,7 @@ ${CURL} ${OPTS} -s -b ${COOKIE} -A "${BROWSER}" -H "DNT: 1" -H "Connection: keep
 TOTAL=`jq '.audibleBookList | .[].title' /tmp/.alexa.audible.list.tmp | wc -l`
 
 echo "trackCount:"${TOTAL}""
-jq '.audibleBookList | .[].title,.[].asin' /tmp/.alexa.audible.list.tmp
+jq '.audibleBookList | .[] | .title,.asin' /tmp/.alexa.audible.list.tmp
 
 #rm -f ${FILE}.tmp
 }
